@@ -1,0 +1,47 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+
+.errorContainer {
+  height: 20px;
+}
+.errorMessage {
+  @apply text-sm text-red-500;
+}
+
+.yellow {
+  @apply bg-yellow-100 text-yellow-900;
+}
+.red {
+  @apply bg-red-100 text-red-900;
+}
+.orange {
+  @apply bg-orange-100 text-orange-900;
+}
+.green {
+  @apply bg-green-100 text-green-900;
+}
+.teal {
+  @apply bg-teal-100 text-teal-900;
+}
+.gray {
+  @apply bg-gray-100 text-gray-900;
+}
+.blue {
+  @apply bg-blue-100 text-blue-900;
+}
+.indigo {
+  @apply bg-indigo-100 text-indigo-900;
+}
+.purple {
+  @apply bg-purple-100 text-purple-900;
+}
+.pink {
+  @apply bg-pink-100 text-pink-900;
+}
