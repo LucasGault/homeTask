@@ -2,7 +2,7 @@
   <Flex
     is="nav"
     col
-    class="w-screen px-2 py-4 md:flex-row md:justify-between md:items-center"
+    class="w-screen space-y-4 px-2 py-4 md:space-y-0 md:flex-row md:justify-between md:items-center"
   >
     <Flex is="router-link" iCenter :to="{ name: 'Home' }" class="logo">
       <svg width="78" height="79" viewBox="0 0 78 79" fill="none">
@@ -20,14 +20,16 @@
       </svg>
       <Title t3xl fBlack>HomeTask</Title>
     </Flex>
-    <Button
-      is="router-link"
-      blue
-      :to="{ name: 'Group' }"
-      v-if="$router.currentRoute.value.name != 'Login'"
-    >
-      Voir mes groupes
-    </Button>
+    <div>
+      <Button
+        is="router-link"
+        blue
+        :to="{ name: 'Group' }"
+        v-if="$router.currentRoute.value.name != 'Login'"
+      >
+        Voir mes groupes
+      </Button>
+    </div>
     <div
       class="log"
       v-if="
@@ -52,7 +54,7 @@ export default {
   components: {
     Flex,
     Button,
-    Title
+    Title,
   },
   methods: {
     logout() {
