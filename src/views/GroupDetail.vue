@@ -146,7 +146,9 @@
                     : 'text-blue-500 hover:bg-white/[0.12] hover:text-blue-500',
                 ]"
               >
-                <Title is="h3" v-if="users.length == 1" class="">Participant</Title>
+                <Title is="h3" v-if="users.length == 1" class=""
+                  >Participant</Title
+                >
                 <Title is="h3" v-else class="">Participants</Title>
               </button>
             </Tab>
@@ -186,15 +188,12 @@
               ]"
             >
               <Flex col class="space-y-2 md:flex-row md:space-y-0 md:space-x-2">
-                <Text tlg fMedium
+                <Text
+                  tlg
+                  fSemiBold
+                  center
                   :class="user.color"
-                  class="
-                    py-2
-                    px-4
-                    rounded
-                    text-lg
-                    font-semibold
-                  "
+                  class="py-2 px-4 rounded"
                   v-for="user in users"
                   :key="user"
                 >
@@ -213,7 +212,10 @@
                   class="bg-white shadow rounded px-8 pt-6 pb-8"
                   @submit.prevent="taskDone"
                 >
-                  <Flex col class="space-y-4 md:flex-row md:space-y-0 md:space-x-4">
+                  <Flex
+                    col
+                    class="space-y-4 md:flex-row md:space-y-0 md:space-x-4"
+                  >
                     <Flex col jBetween>
                       <label
                         class="block text-gray-600 text-sm font-bold mb-2"
@@ -240,7 +242,11 @@
                       >
                         Tâche réalisé
                       </label>
-                      <Listbox v-if="planningTasks.length != 0" id="task-choice" v-model="task">
+                      <Listbox
+                        v-if="planningTasks.length != 0"
+                        id="task-choice"
+                        v-model="task"
+                      >
                         <div class="relative">
                           <ListboxButton
                             class="
@@ -357,12 +363,15 @@
                         Ajouter une tâche
                       </Button>
                     </Flex>
-                    <Button is="input" type="submit" value="Task done" green class="md:self-end"/>
+                    <Button
+                      is="input"
+                      type="submit"
+                      value="Task done"
+                      green
+                      class="md:self-end"
+                    />
                   </Flex>
-                  <Text error italic
-                    class="mt-1"
-                    v-if="errorDateMessage"
-                  >
+                  <Text error italic class="mt-1" v-if="errorDateMessage">
                     {{ errorDateMessage }}
                   </Text>
                   <!-- <p class="text-blue-500 text-xs font-bold mt-1" v-else>
@@ -384,20 +393,69 @@
                 'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60',
               ]"
             >
-              <div class="tasksContainer">
-                <div class="planningTasksContainer">
-                  <Title is="h4" txl fBold>
-                    À faire
-                    <span class="font-medium text-lg"> (dans la semaine) </span> 
+              <div class="tasksContainer p-2 space-y-4">
+                <div class="planningTasksContainer space-y-2">
+                  <Title is="h4" t2xl fBold>
+                    Tâches à faire
+                    <span class="font-medium text-lg"> (dans la semaine) </span>
                   </Title>
                   <div v-for="task in planningTasks" :key="task.uid">
-                    <Text>{{ task.name }} x{{ task.repetition }}</Text>
+                    <Text tlg fMedium
+                      >{{ task.name }}
+                      <span class="text-base font-normal"
+                        >x{{ task.repetition }}</span
+                      >
+                    </Text>
                   </div>
                 </div>
-                <div class="doneTasksContainer" v-if="tasksDone.length != 0">
-                  <Title is="h4" txl fBold>fait</Title>
-                  <div v-for="taskDone in tasksDone" :key="taskDone.uid">
-                    <Text>{{ taskDone.task.name }} {{ taskDone.user.prenom }}</Text>
+                <div
+                  class="doneTasksContainer space-y-2"
+                  v-if="tasksDone.length != 0"
+                >
+                  <Title is="h4" t2xl fBold>
+                    Tâches faites
+                    <span class="font-medium text-lg"> (les 7 derniers jours) </span>
+                  </Title>
+                  <div
+                    v-for="taskDone in tasksDone"
+                    :key="taskDone.uid"
+                  >
+                    <Flex
+                      jBetween
+                      iCenter
+                      class="px-4 md:px-6 py-4 rounded-xl"
+                      :class="taskDone.color"
+                      v-if="new Date(taskDone.date) >= new Date(getWeekBefore())"
+                    >
+                      <div>
+                        <Text tlg fMedium>
+                          {{ taskDone.task.name }} {{ taskDone.user.prenom }},
+                        </Text>
+                        <Text> le {{ taskDone.date.toLocaleString() }} </Text>
+                      </div>
+                      <Button
+                        v-if="taskDone.user.uid == $auth.currentUser.uid"
+                        red
+                        @click="deleteTaskDone(taskDone)"
+                      >
+                        <Flex iCenter class="space-x-4">
+                          <svg
+                            width="40"
+                            height="40"
+                            class="w-6 h-6"
+                            fill="currentColor"
+                            viewBox="0 0 1792 1792"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M704 1376v-704q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v704q0 14 9 23t23 9h64q14 0 23-9t9-23zm256 0v-704q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v704q0 14 9 23t23 9h64q14 0 23-9t9-23zm256 0v-704q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v704q0 14 9 23t23 9h64q14 0 23-9t9-23zm-544-992h448l-48-117q-7-9-17-11h-317q-10 2-17 11zm928 32v64q0 14-9 23t-23 9h-96v948q0 83-47 143.5t-113 60.5h-832q-66 0-113-58.5t-47-141.5v-952h-96q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h309l70-167q15-37 54-63t79-26h320q40 0 79 26t54 63l70 167h309q14 0 23 9t9 23z"
+                            ></path>
+                          </svg>
+                          <Text class="hidden md:block" fSemiBold>Supprimer</Text>
+                        </Flex>
+                      </Button>
+                    </Flex>
+
                   </div>
                 </div>
               </div>
@@ -411,29 +469,27 @@
       v-if="isAddUser"
       :name="name"
       :users="users"
-    ></AddUserInGrp>
-    <AddTasksHebdo
-      @close="toggleAddTasks"
-      v-if="isAddTasks"
-      :tasks="tasks"
-    ></AddTasksHebdo>
-    <AddTasksSpecial
-      @close="toggleAddSpecial"
-      v-if="isAddSpecial"
-    ></AddTasksSpecial>
+    />
+    <AddTasksHebdo @close="toggleAddTasks" v-if="isAddTasks" :tasks="tasks" />
+    <AddTasksSpecial @close="toggleAddSpecial" v-if="isAddSpecial" />
     <LeaveGrp
       @close="toggleLeaveGrp"
       v-if="isLeaveGrp"
       :color="color"
       :users="users"
-    ></LeaveGrp>
+    />
     <ChangeColor
       @close="toggleChangeColor"
       v-if="isChangeColor"
       :colorUser="color"
       :users="users"
+    />
+    <DeleteTaskDone
+      v-if="isDeleteTaskDone"
+      @close="toggleDeleteTaskDone"
+      :deleteTask="deleteTask"
     >
-    </ChangeColor>
+    </DeleteTaskDone>
   </div>
 </template>
 
@@ -443,6 +499,8 @@ import AddTasksHebdo from '../components/modal/AddTasksHebdo.vue'
 import LeaveGrp from '../components/modal/LeaveGrp.vue'
 import ChangeColor from '../components/modal/ChangeColor.vue'
 import AddTasksSpecial from '../components/modal/AddTasksSpecial.vue'
+import DeleteTaskDone from '../components/modal/DeleteTaskDone.vue'
+
 import Flex from '../components/ui/Flex.vue'
 import Button from '../components/ui/Button.vue'
 import Title from '../components/ui/Title.vue'
@@ -504,6 +562,7 @@ export default {
     ChevronDownIcon,
     CheckIcon,
     SelectorIcon,
+    DeleteTaskDone,
   },
   data() {
     return {
@@ -512,6 +571,7 @@ export default {
       isAddSpecial: false,
       isLeaveGrp: false,
       isChangeColor: false,
+      isDeleteTaskDone: false,
       users: [],
       tasks: [],
       tasksDone: [],
@@ -522,6 +582,7 @@ export default {
         name: '',
         date: new Date(),
       },
+      deleteTask: {},
       color: '',
       task: { name: '' },
       errorMessage: '',
@@ -532,7 +593,16 @@ export default {
     this.getPlanningTasks()
     this.getTask()
     this.getTasksDone()
-    // console.log(this.tasks);
+    // console.log(this.tasksDone)
+
+    console.log(this.getWeekBefore())
+    // function getMonday(d) {
+    //   d = new Date(d)
+    //   var day = d.getDay(),
+    //     diff = d.getDate() - day + (day == 0 ? -6 : 1) // adjust when day is sunday
+    //   return new Date(d.setDate(diff))
+    // }
+    // console.log(getMonday(new Date()))
   },
   methods: {
     /**
@@ -655,6 +725,9 @@ export default {
         taskDone.uid = data.uid
         taskDone.task = this.tasks[indexTask]
         taskDone.user = userInfo
+        taskDone.date = new Date(data.doneAt.toDate())
+        taskDone.color = data.color
+
         taskDone.user.uid = userRef.id
         let indexUser = this.users.findIndex(
           (obj) => obj.uid == taskDone.user.uid
@@ -664,7 +737,16 @@ export default {
         // console.log(indexUser);
         this.tasksDone.push(taskDone)
         this.attrs.push(calendar)
+        this.tasksDone.sort(function (a, b) {
+          // console.log(a,b);
+          // Turn your strings into dates, and then subtract them
+          // to get a value that is either negative, positive, or zero.
+          return new Date(b.date) - new Date(a.date)
+        })
       })
+
+      // console.log(tasktmp[0].date);
+      // this.tasksDone = tasktmp
       // console.log(this.tasksDone);
       // await setTimeout(this.addNbTasks(),5000)
       // await this.addNbTasks();
@@ -728,7 +810,18 @@ export default {
         this.$refs.inputError.classList.add('inputError')
       }
     },
-
+    getWeekBefore() {
+      var today = new Date()
+      var weekBefore = new Date()
+      weekBefore.setDate(today.getDate() - 7)
+      return weekBefore;
+    },
+    deleteTaskDone(task) {
+      this.deleteTask = task
+      this.toggleDeleteTaskDone()
+      // this.isDeleteTaskDone = !this.isDeleteTaskDone
+      // console.log(task)
+    },
     toggleAddUser() {
       this.isAddUser = !this.isAddUser
       console.log(this.isAddUser)
@@ -745,6 +838,9 @@ export default {
     },
     toggleChangeColor() {
       this.isChangeColor = !this.isChangeColor
+    },
+    toggleDeleteTaskDone() {
+      this.isDeleteTaskDone = !this.isDeleteTaskDone
     },
     toggleErrorClass() {
       this.$refs.inputError.classList.toggle('inputError')

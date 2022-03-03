@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="p-2 space-y-4">
+    <div class="max-w-4xl mt-12 mx-2 md:mx-auto bg-white rounded-xl p-4 md:px-10 md:py-8 space-y-6">
       <Flex jBetween>
         <Title is="h2" t3xl fBlack>Groupe</Title>
       </Flex>
@@ -15,7 +15,7 @@
           <Text>Vous n'avez pas encore de groupe.</Text>
           <Text>Créez en un ou attendez de vous faire inviter</Text>
         </div>
-        <div v-else class=" space-y-2">
+        <div v-else class=" space-y-4">
           <div v-for="group in groups" :key="group.uid">
             <Flex jBetween v-if="!group.pending">
               <Title is="h4" txl fMedium>
@@ -110,12 +110,12 @@ export default {
 
 <style lang="postcss" scoped>
 .group-container {
-  @apply space-y-2;
+  @apply space-y-4;
   /* max-width: 60%; */
 }
 @screen md {
   .group-container {
-    max-width: 60%;
+    /* max-width: 60%; */
   }
 }
 </style>

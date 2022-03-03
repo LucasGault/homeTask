@@ -2,7 +2,7 @@
   <Flex
     is="nav"
     col
-    class="w-screen space-y-4 px-2 py-4 md:space-y-0 md:flex-row md:justify-between md:items-center"
+    class="space-y-4 px-2 py-4 md:space-y-0 md:flex-row md:justify-between md:items-center"
   >
     <Flex is="router-link" iCenter :to="{ name: 'Home' }" class="logo">
       <svg width="78" height="79" viewBox="0 0 78 79" fill="none">
@@ -75,5 +75,9 @@ export default {
 <style lang='postcss' scoped>
 .logo svg {
   width: 32px;
+}
+
+.logo {
+  @apply outline-none;
 }
 </style>

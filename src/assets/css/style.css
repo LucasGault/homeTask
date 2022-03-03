@@ -45,3 +45,7 @@
 .pink {
   @apply bg-pink-100 text-pink-900;
 }
+
+.router-link-active {
+  @apply outline outline-offset-2 ring outline-blue-500
+}

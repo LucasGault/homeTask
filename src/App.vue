@@ -1,5 +1,5 @@
 <template>
-  <div class="poppins w-screen min-h-screen bg-gray-200">
+  <div class="poppins min-h-screen bg-gray-200">
     <NavBar></NavBar>
 
     <router-view />

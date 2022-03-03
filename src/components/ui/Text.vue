@@ -4,6 +4,7 @@
     :class="[
       { 'text-sm text-red-500': error },
       { 'text-center': center },
+      { 'text-sm': tsm },
       { 'text-lg': tlg },
       { 'text-xl': txl },
       { 'text-2xl': t2xl },
@@ -29,6 +30,7 @@ export default {
       default: 'p',
     },
     error: Boolean,
+    tsm: Boolean,
     tlg: Boolean,
     txl: Boolean,
     t2xl: Boolean,
