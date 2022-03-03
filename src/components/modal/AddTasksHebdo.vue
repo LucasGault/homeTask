@@ -17,7 +17,7 @@
         </svg>
       </Button>
     </Flex>
-    <Flex is="form" col @submit.prevent class="space-y-4">
+    <Flex is="form" col @submit.prevent="addTask" class="space-y-4">
       <div>
         <label for="task-pre">Ajouter une tâche</label>
         <Listbox class="mt-2" id="task-pre" v-model="task">
@@ -139,7 +139,7 @@
           max="14"
         />
       </Flex>
-      <Button green @click="addTask">Ajouter une tâche</Button>
+      <Button is="input" type="submit" green value="Ajouter une tâche" />
     </Flex>
   </Modal>
 </template>
@@ -179,7 +179,7 @@ export default {
     Button,
     Modal,
     Input,
-    Title
+    Title,
   },
   data() {
     return {

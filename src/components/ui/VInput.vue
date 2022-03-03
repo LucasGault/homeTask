@@ -2,7 +2,7 @@
   <Flex col>
     <label :for="id_input">{{ name }}</label>
     <input
-    v-if="type_input == 'number'"
+      v-if="type_input == 'number'"
       :id="id_input"
       :type="type_input"
       :value="value"
@@ -13,7 +13,7 @@
       @input="$emit('update:value', $event.target.value)"
     />
     <input
-    v-else
+      v-else
       :id="id_input"
       :type="type_input"
       :value="value"
@@ -29,8 +29,8 @@
 <script>
 import Flex from './Flex.vue'
 export default {
-  components:{
-    Flex
+  components: {
+    Flex,
   },
   name: 'VInput',
   props: {
@@ -45,13 +45,13 @@ export default {
     required_title: String,
     pattern: String,
     min: {
-      type:Number,
+      type: Number,
       default: 1,
     },
     max: {
-      type:Number,
+      type: Number,
       default: 14,
-    }
+    },
   },
 }
 </script>

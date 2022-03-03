@@ -17,7 +17,7 @@
         </svg>
       </Button>
     </Flex>
-    <Flex is="form" col @submit.prevent>
+    <Flex is="form" col @submit.prevent="createGroup">
       <Flex col>
         <Input
           id_input="group_name"
@@ -135,7 +135,7 @@
           </transition>
         </div>
       </Listbox>
-      <Button green class="mt-4" @click="createGroup"> Créer le groupe </Button>
+      <Button is="input" type="submit" green class="mt-4" value="Créer le groupe"/>
     </Flex>
   </Modal>
 </template>

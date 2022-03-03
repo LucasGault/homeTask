@@ -1,5 +1,5 @@
 <template>
-  <Flex is="form" col jBetween class="h-full" @submit.prevent>
+  <Flex is="form" col jBetween class="h-full" @submit.prevent="login">
     <Title fBold t3xl>Connexion</Title>
     <div class="">
       <Flex col>
@@ -32,15 +32,15 @@
     >
       Mot de passe oublié?
     </a> -->
-
     <div class="btnGroup">
-      <span
-        class="text-white py-2 px-4 rounded-lg hover:bg-opacity-80 bg-blue-500"
+      <Button
+        is="input"
+        type="button"
+        blue
+        value="S'inscrire"
         @click="$parent.toggleForm('register')"
-      >
-        S'inscrire
-      </span>
-      <Button green @click="login">Se connecter</Button>
+      />
+      <Button is="input" type="submit" green value="Se connecter" />
     </div>
   </Flex>
 </template>

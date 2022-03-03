@@ -15,26 +15,20 @@
           <Text>Vous n'avez pas encore de groupe.</Text>
           <Text>Créez en un ou attendez de vous faire inviter</Text>
         </div>
-        <div v-else>
+        <div v-else class=" space-y-2">
           <div v-for="group in groups" :key="group.uid">
             <Flex jBetween v-if="!group.pending">
               <Title is="h4" txl fMedium>
                 {{ group.name }}
               </Title>
-              <router-link
+              <Button
+                blue
+                is="router-link"
                 :to="{ name: 'GroupDetail', params: { uid: group.uid } }"
-                class="
-                  bg-blue-500
-                  text-white
-                  py-2
-                  px-4
-                  rounded-lg
-                  hover:bg-opacity-80
-                  text-lg
-                "
+                class="text-lg"
               >
                 Voir le groupe
-              </router-link>
+              </Button>
             </Flex>
           </div>
         </div>
@@ -70,7 +64,7 @@ export default {
     Flex,
     Button,
     Title,
-    Text
+    Text,
   },
   data() {
     return {

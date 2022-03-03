@@ -211,9 +211,9 @@
               <Flex col jCenter iCenter class="space-y-4 my-4">
                 <form
                   class="bg-white shadow rounded px-8 pt-6 pb-8"
-                  @submit.prevent
+                  @submit.prevent="taskDone"
                 >
-                  <Flex class="space-y-4 md:flex-row md:space-y-0 md:space-x-4">
+                  <Flex col class="space-y-4 md:flex-row md:space-y-0 md:space-x-4">
                     <Flex col jBetween>
                       <label
                         class="block text-gray-600 text-sm font-bold mb-2"
@@ -357,9 +357,7 @@
                         Ajouter une tâche
                       </Button>
                     </Flex>
-                    <Button green class="md:self-end" @click="taskDone()">
-                      task done
-                    </Button>
+                    <Button is="input" type="submit" value="Task done" green class="md:self-end"/>
                   </Flex>
                   <Text error italic
                     class="mt-1"

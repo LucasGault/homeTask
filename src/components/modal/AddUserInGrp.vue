@@ -17,8 +17,8 @@
         </svg>
       </Button>
     </Flex>
-    <Flex is="form" col @submit.prevent>
-      <Flex col class="space-y-4">
+    <Flex col>
+      <Flex is="form" col @submit.prevent="searchUser" class="space-y-4">
         <label for="addEmail">Ajouter des participants</label>
         <div>
           <Flex jBetween>
@@ -30,44 +30,37 @@
               placeholder="email"
               id="addEmail"
               class="
-                rounded-r
-                flex-auto
-                mt-0
-                border border-gray-400
-                placeholder-gray-400
-                focus:outline-none
-                focus:ring-1
-                focus:border-sky-500
-                focus:ring-sky-500
-                invalid:border-red-500 invalid:text-red-600
+                mail_input
                 focus:invalid:border-red-500 focus:invalid:ring-red-500
-                disabled:bg-gray-50
-                disabled:text-gray-500
-                disabled:border-gray-200
-                disabled:shadow-none
-                valid:border-blue-500
               "
               @input="resetError"
             />
             <Button
-              blue
+              is="input"
+              type="submit"
+              value="Rechercher"
+              blue 
               class="rounded-l-none rounded-r-lg"
-              @click="searchUser()"
-              >Rechercher</Button
-            >
+            />
           </Flex>
           <div class="errorContainer">
-            <Text error v-if="errorMessage" >{{ errorMessage }}</Text>
+            <Text error v-if="errorMessage">{{ errorMessage }}</Text>
           </div>
         </div>
       </Flex>
       <div class="space-y-4" v-if="userToAdd.length != 0">
         <Flex jBetween iCenter v-for="user in userToAdd" :key="user.uid">
-          <Text tlg fMedium >{{ user.prenom }} {{ user.nom }}</Text>
-          <Button red @click="deleteUser(user)" >Supprimer</Button>
+          <Text tlg fMedium>{{ user.prenom }} {{ user.nom }}</Text>
+          <Button
+            is="input"
+            type="button"
+            value="Supprimer"
+            red
+            @click="deleteUser(user)"
+          />
         </Flex>
       </div>
-      <Button green @click="addUser()" class="mt-4">Ajouter</Button>
+      <Button @click="addUser" green class="mt-4" > Ajouter </Button>
     </Flex>
   </Modal>
 </template>
@@ -93,7 +86,7 @@ export default {
     Button,
     Modal,
     Title,
-    Text
+    Text,
   },
   props: {
     name: {
@@ -173,7 +166,7 @@ export default {
     toggleErrorClass() {
       this.$refs.inputError.classList.toggle('inputError')
     },
-  }
+  },
 }
 </script>
 
@@ -181,14 +174,28 @@ export default {
 .modalContainer {
   min-width: 35vw;
 }
+
+.mail_input {
+  @apply rounded-l-lg rounded-r-none p-2 shadow-none flex-auto mt-0 border border-gray-400 placeholder-gray-400;
+}
+.mail_input:focus {
+  @apply ring-offset-2 ring-1 border-sky-500 ring-sky-500;
+}
+.mail_input:invalid {
+  @apply border-red-500 bg-red-200 bg-opacity-50 text-red-600;
+}
+.mail_input:disabled {
+  @apply bg-gray-50 text-gray-500 border-gray-200 shadow-none;
+}
+.mail_input:valid {
+  @apply border-blue-500;
+}
+.mail_input:focus:invalid {
+  @apply border-red-500 ring-red-500;
+}
+
 label {
   @apply text-xl font-medium;
-}
-input {
-  @apply rounded-lg p-2 shadow-md;
-}
-input {
-  @apply rounded-l-lg rounded-r-none shadow-none;
 }
 .inputError {
   @apply border-red-500 text-red-600;

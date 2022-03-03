@@ -26,14 +26,11 @@ const routes = [
       requiresAuth: true
     }
   },
-  // {
-  //   path: "/dd",
-  //   name: "dd",
-  //   component: () => import("../views/dd.vue"),
-  //   meta: {
-  //     requiresAuth: true
-  //   }
-  // },
+  {
+    path: "/dd",
+    name: "dd",
+    component: () => import("../views/dd.vue"),
+  },
   {
     path: "/group/:uid",
     name: "GroupDetail",
