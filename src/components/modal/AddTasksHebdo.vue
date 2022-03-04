@@ -199,7 +199,6 @@ export default {
   methods: {
     async addTask() {
       var data = {}
-      // console.log(this.task.number)
       if (this.task2) {
         data.name = this.task2
       } else {
@@ -207,7 +206,7 @@ export default {
       }
       data.repetition = this.task.number
       try {
-        const docRef = await addDoc(
+        await addDoc(
           collection(
             this.$db,
             'group',
@@ -217,7 +216,7 @@ export default {
           data
         )
         // console.log('Document written with ID: ', docRef.id)
-        this.$parent.getPlanningTasks()
+        this.$parent.$parent.$parent.getPlanningTasks()
         this.$emit('close')
       } catch (e) {
         console.error('Error adding document: ', e)

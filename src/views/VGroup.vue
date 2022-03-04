@@ -49,8 +49,8 @@
 import { mapState } from 'vuex'
 import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'
 
-import AddGrp from '../components/AddGrp.vue'
-import ModalPendingGrp from '../components/ModalPendingGrp.vue'
+import AddGrp from '../components/modal/AddGrp.vue'
+import ModalPendingGrp from '../components/modal/ModalPendingGrp.vue'
 // import Modal from '../components/ui/Modal.vue'
 import Flex from '../components/ui/Flex.vue'
 import Button from '../components/ui/Button.vue'

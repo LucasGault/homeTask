@@ -199,7 +199,7 @@ export default {
           color: this.color.name,
         }),
       })
-      await this.$parent.getUsersGroup()
+      await this.$parent.$parent.$parent.getUsersGroup()
 
       this.$emit('close')
     },

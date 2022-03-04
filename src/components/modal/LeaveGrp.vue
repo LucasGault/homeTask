@@ -53,8 +53,6 @@ export default {
   components: { Flex, Button, Modal, Title, Text },
   methods: {
     async leaveGrp() {
-      console.log(this.$route.params.uid)
-      console.log(this.$auth.currentUser.uid)
       await deleteDoc(
         doc(
           this.$db,

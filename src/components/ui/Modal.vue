@@ -45,7 +45,7 @@ export default {
   @apply fixed top-0 left-0 w-screen h-screen;
   --webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
-  z-index: 1;
+  z-index: 2;
 }
 
 .modalContainer {

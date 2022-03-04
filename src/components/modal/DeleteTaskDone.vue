@@ -71,7 +71,8 @@ export default {
           this.deleteTask.uid
         )
       )
-      this.$parent.getTasksDone()
+      //bancale
+      this.$parent.$parent.$parent.$parent.$parent.getTasksDone()
       this.$emit('close')
     },
   },
