@@ -23,7 +23,3 @@ app.config.globalProperties.$db = db
 app.config.globalProperties.$auth = auth
 app.mount("#app");
 
-
-// app.config.globalProperties.$http = () => {
-//   console.log('test');
-// }

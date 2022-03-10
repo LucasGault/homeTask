@@ -1,4 +1,6 @@
 <template>
+  <!-- <Transition name="task"> -->
+
   <component :is="is"
     class="flex"
     :class="[
@@ -10,6 +12,7 @@
   >
     <slot></slot>
   </component>
+  <!-- </Transition> -->
 </template>
 
 <script>

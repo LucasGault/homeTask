@@ -9,7 +9,7 @@
           Vous avez été invité dans un groupe
         </p> -->
       <div class="space-y-4">
-        <Text center v-if="users.length == 1">
+        <Text center v-if="$store.state.users.length == 1">
           Quitter ce groupe supprimera définitivement le groupe.
         </Text>
         <Text center>Êtes-vous sûr de vouloir quitter le groupe?</Text>
@@ -41,14 +41,14 @@ import Text from '../ui/Text.vue'
 export default {
   emits: ['close'],
   props: {
-    color: {
-      type: String,
-      required: true,
-    },
-    users: {
-      type: Array,
-      required: true,
-    },
+    // color: {
+    //   type: String,
+    //   required: true,
+    // },
+    // users: {
+    //   type: Array,
+    //   required: true,
+    // },
   },
   components: { Flex, Button, Modal, Title, Text },
   methods: {
@@ -62,19 +62,17 @@ export default {
           this.$route.params.uid
         )
       )
-      if (this.users.length == 1) {
+      if (this.$store.state.users.length == 1) {
         await deleteDoc(doc(this.$db, 'group', this.$route.params.uid))
       } else {
         const groupRef = doc(this.$db, 'group', this.$route.params.uid)
         await updateDoc(groupRef, {
           users: arrayRemove({
             uid: doc(this.$db, 'users', this.$auth.currentUser.uid),
-            color: this.color,
+            color: this.$store.state.color,
           }),
         })
       }
-      // await this.$parent.getGrps()
-
       this.$router.push({ name: 'Group' })
     },
   },

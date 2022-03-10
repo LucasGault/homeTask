@@ -78,7 +78,6 @@ export default {
   methods: {
     toggleGrp() {
       this.isGrp = !this.isGrp
-      // console.log(this.isGrp);
     },
     async getGrps() {
       this.groups = []

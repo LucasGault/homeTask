@@ -218,7 +218,7 @@ export default {
         this.$parent.getGrps()
         this.$emit('close')
       } else {
-        console.log('Pas de nom')
+        // console.log('Pas de nom')
         this.errorMessage = 'Veuillez remplir un nom de groupe'
       }
     },

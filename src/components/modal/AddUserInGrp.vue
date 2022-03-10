@@ -88,16 +88,6 @@ export default {
     Title,
     Text,
   },
-  props: {
-    name: {
-      required: true,
-      type: String,
-    },
-    users: {
-      type: Array,
-      required: true,
-    },
-  },
   emits: ['close'],
   data() {
     return {
@@ -109,7 +99,7 @@ export default {
   methods: {
     async searchUser() {
       if (this.email) {
-        if (this.users.find((user) => user.email == this.email)) {
+        if (this.$store.state.users.find((user) => user.email == this.email)) {
           this.errorMessage = "L'utilisateur est déjà dans le groupe"
           this.$refs.inputError.classList.add('inputError')
         } else {
@@ -141,7 +131,7 @@ export default {
       if (this.userToAdd.length != 0) {
         this.userToAdd.forEach(async (user) => {
           const docData = {
-            name: this.name,
+            name: this.$store.state.groupName,
             pending: true,
           }
           await setDoc(

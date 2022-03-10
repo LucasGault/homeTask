@@ -101,14 +101,13 @@ export default {
             name: this.task.name,
             // number: this.task.number,
           })
-          console.log('Document written with ID: ', docRef.id)
           // this.$parent.getTask();
           this.toggleTask()
         } catch (e) {
           console.error('Error adding document: ', e)
         }
       } else {
-        console.log('Pas de nom')
+        // console.log('Pas de nom')
         this.errorMessage = 'Veuillez indiquer un nom de groupe'
       }
     },

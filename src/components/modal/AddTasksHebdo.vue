@@ -23,44 +23,13 @@
         <Listbox class="mt-2" id="task-pre" v-model="task">
           <div class="relative">
             <ListboxButton
-              class="
-                relative
-                w-full
-                py-2
-                pl-3
-                pr-10
-                text-left
-                bg-white
-                rounded-lg
-                shadow-md
-                cursor-default
-                focus:outline-none
-                focus-visible:ring-2
-                focus-visible:ring-opacity-75
-                focus-visible:ring-white
-                focus-visible:ring-offset-blue-300
-                focus-visible:ring-offset-2
-                focus-visible:border-indigo-500
-                sm:text-lg
-                heightmin
-              "
+              class="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-blue-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-lg heightmin"
             >
               <span class="block truncate">{{ task.name }}</span>
               <span
-                class="
-                  absolute
-                  inset-y-0
-                  right-0
-                  flex
-                  items-center
-                  pr-2
-                  pointer-events-none
-                "
+                class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
               >
-                <SelectorIcon
-                  class="w-5 h-5 text-gray-400"
-                  aria-hidden="true"
-                />
+                <SelectorIcon class="w-5 h-5 text-gray-400" aria-hidden="true" />
               </span>
             </ListboxButton>
 
@@ -70,25 +39,11 @@
               leave-to-class="opacity-0"
             >
               <ListboxOptions
-                class="
-                  absolute
-                  w-full
-                  py-1
-                  mt-1
-                  overflow-auto
-                  text-base
-                  bg-white
-                  rounded-md
-                  shadow-lg
-                  max-h-48
-                  ring-1 ring-black ring-opacity-5
-                  focus:outline-none
-                  sm:text-sm
-                "
+                class="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-48 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
               >
                 <ListboxOption
                   v-slot="{ active, selected }"
-                  v-for="task in tasks"
+                  v-for="task in $store.state.tasks"
                   :key="task.name"
                   :value="task"
                   as="template"
@@ -108,15 +63,7 @@
                     >
                     <span
                       v-if="selected"
-                      class="
-                        absolute
-                        inset-y-0
-                        left-0
-                        flex
-                        items-center
-                        pl-3
-                        text-blue-600
-                      "
+                      class="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-600"
                     >
                       <CheckIcon class="w-5 h-5" aria-hidden="true" />
                     </span>
@@ -128,7 +75,17 @@
         </Listbox>
       </div>
       <Flex col>
-        <Input
+        <label for="rep_weeek">Répétitions dans la semaine </label>
+        <input
+          id="rep_weeek"
+          type="number"
+          placeholder="Répétitions dans la semaine"
+          required
+          min="1"
+          max="14"
+          v-model="task.number"
+        />
+        <!-- <Input
           id_input="rep"
           name="Répétitions dans la semaine"
           type_input="number"
@@ -137,7 +94,7 @@
           required
           min="1"
           max="14"
-        />
+        /> -->
       </Flex>
       <Button is="input" type="submit" green value="Ajouter une tâche" />
     </Flex>
@@ -145,28 +102,23 @@
 </template>
 
 <script>
-import {
-  Listbox,
-  ListboxButton,
-  ListboxOptions,
-  ListboxOption,
-} from '@headlessui/vue'
-import { CheckIcon, SelectorIcon } from '@heroicons/vue/solid'
+import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from "@headlessui/vue";
+import { CheckIcon, SelectorIcon } from "@heroicons/vue/solid";
 
-import { addDoc, collection, doc } from 'firebase/firestore'
+import { addDoc, collection, doc } from "firebase/firestore";
 
-import Flex from '../ui/Flex.vue'
-import Button from '../ui/Button.vue'
-import Modal from '../ui/Modal.vue'
-import Input from '../ui/VInput.vue'
-import Title from '../ui/Title.vue'
+import Flex from "../ui/Flex.vue";
+import Button from "../ui/Button.vue";
+import Modal from "../ui/Modal.vue";
+import Input from "../ui/VInput.vue";
+import Title from "../ui/Title.vue";
 export default {
-  emits: ['close'],
+  emits: ["close"],
   props: {
-    tasks: {
-      type: Object,
-      required: true,
-    },
+    // tasks: {
+    //   type: Object,
+    //   required: true,
+    // },
   },
   components: {
     Listbox,
@@ -183,51 +135,52 @@ export default {
   },
   data() {
     return {
-      task: {
-        name: '',
-        number: 1,
-      },
-      task2: null,
-    }
+      task: this.$store.state.tasks[0],
+    };
   },
   mounted() {
-    this.task = this.tasks[0]
-    this.task.number = 1
-    // this.addEvents()
-    // console.log(this.tasks)
+    this.task.number = 1;
   },
   methods: {
     async addTask() {
-      var data = {}
+      var data = {};
       if (this.task2) {
-        data.name = this.task2
+        data.name = this.task2;
       } else {
-        data.name = doc(this.$db, 'tasks', this.task.uid)
+        data.name = doc(this.$db, "tasks", this.task.uid);
       }
-      data.repetition = this.task.number
+      data.repetition = this.task.number;
       try {
-        await addDoc(
-          collection(
-            this.$db,
-            'group',
-            this.$route.params.uid,
-            'planningTasks'
-          ),
+        const docRef = await addDoc(
+          collection(this.$db, "group", this.$route.params.uid, "planningTasks"),
           data
-        )
+        );
+        const task = {
+          name: this.task.name,
+          uid: this.task.uid,
+          repetition: this.task.number,
+        }
+        this.$store.commit("addPlanningTask", task)
         // console.log('Document written with ID: ', docRef.id)
-        this.$parent.$parent.$parent.getPlanningTasks()
-        this.$emit('close')
+        // this.$parent.$parent.$parent.getPlanningTasks();
+        this.$emit("close");
       } catch (e) {
-        console.error('Error adding document: ', e)
+        console.error("Error adding document: ", e);
       }
     },
   },
-}
+};
 </script>
 
-<style lang='postcss' scoped>
+<style lang="postcss" scoped>
 .heightmin {
   min-height: 44px;
+}
+label {
+  @apply text-xl font-medium;
+}
+input {
+  @apply rounded-lg p-2 shadow-md mt-4;
+  /* max-width: 60%; */
 }
 </style>

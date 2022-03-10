@@ -30,9 +30,6 @@ export default {
       isCloseNew2: false,
     }
   },
-  mounted() {
-    // console.log(getAuth().currentUser);
-  },
   methods: {
     toggleForm(form) {
       this.showForm = form

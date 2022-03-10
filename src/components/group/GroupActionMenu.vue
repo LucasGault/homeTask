@@ -4,24 +4,7 @@
       <Menu as="div" class="relative inline-block text-left">
         <div>
           <MenuButton
-            class="
-              inline-flex
-              justify-center
-              items-center
-              w-full
-              px-4
-              py-2
-              text-lg
-              font-medium
-              text-white
-              bg-blue-500
-              rounded-md
-              hover:bg-opacity-80
-              focus:outline-none
-              focus-visible:ring-2
-              focus-visible:ring-blue-900
-              focus-visible:ring-opacity-75
-            "
+            class="inline-flex justify-center items-center w-full px-4 py-2 text-lg font-medium text-white bg-blue-500 rounded-md hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-900 focus-visible:ring-opacity-75"
           >
             Options
             <ChevronDownIcon
@@ -40,18 +23,7 @@
           leave-to-class=" scale-95 opacity-0"
         >
           <MenuItems
-            class="
-              absolute
-              right-0
-              w-64
-              mt-2
-              origin-top-right
-              bg-white
-              rounded-md
-              shadow-lg
-              ring-1 ring-black ring-opacity-5
-              focus:outline-none
-            "
+            class="absolute right-0 w-64 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           >
             <div class="px-1 space-y-1 py-1">
               <MenuItem v-slot="{ active }">
@@ -78,7 +50,7 @@
                   Tâches hebdomadaire
                 </button>
               </MenuItem>
-              <MenuItem v-slot="{ active }">
+              <!-- <MenuItem v-slot="{ active }">
                 <button
                   :class="[
                     active ? 'bg-blue-500 text-white' : 'text-gray-900',
@@ -89,7 +61,7 @@
                 >
                   Tâches occasionnelles
                 </button>
-              </MenuItem>
+              </MenuItem> -->
               <MenuItem v-slot="{ active }">
                 <button
                   :class="[
@@ -131,48 +103,49 @@
         </transition>
       </Menu>
     </div>
-    <AddUserInGrp
-      @close="toggleAddUser"
-      v-if="isAddUser"
-      :name="$parent.$parent.name"
-      :users="$parent.$parent.users"
-    />
-    <AddTasksHebdo
-      @close="toggleAddTasks"
-      v-if="isAddTasks"
-      :tasks="$parent.$parent.tasks"
-    />
-    <AddTasksSpecial @close="toggleAddSpecial" v-if="isAddSpecial" />
-    <LeaveGrp
-      @close="toggleLeaveGrp"
-      v-if="isLeaveGrp"
-      :color="$parent.$parent.color"
-      :users="$parent.$parent.users"
-    />
-    <ChangeColor
-      @close="toggleChangeColor"
-      v-if="isChangeColor"
-      :colorUser="$parent.$parent.color"
-      :users="$parent.$parent.users"
-    />
+    <Transition name="fade">
+      <AddUserInGrp
+        @close="toggleAddUser"
+        v-if="isAddUser"
+        :name="$store.state.name"
+        :users="$store.state.users"
+      />
+    </Transition>
+    <Transition name="fade">
+      <AddTasksHebdo @close="toggleAddTasks" v-if="isAddTasks" />
+    </Transition>
+    <!-- <Transition name="fade">
+      <AddTasksSpecial @close="toggleAddSpecial" v-if="isAddSpecial" />
+    </Transition> -->
+    <Transition name="fade">
+      <LeaveGrp
+        @close="toggleLeaveGrp"
+        v-if="isLeaveGrp"
+        :color="$parent.$parent.color"
+        :users="$parent.$parent.users"
+      />
+    </Transition>
+    <Transition name="fade">
+      <ChangeColor @close="toggleChangeColor" v-if="isChangeColor" />
+    </Transition>
   </div>
 </template>
 
 <script>
-import AddUserInGrp from '../modal/AddUserInGrp.vue'
-import AddTasksHebdo from '../modal/AddTasksHebdo.vue'
-import LeaveGrp from '../modal/LeaveGrp.vue'
-import ChangeColor from '../modal/ChangeColor.vue'
-import AddTasksSpecial from '../modal/AddTasksSpecial.vue'
-import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
-import { ChevronDownIcon } from '@heroicons/vue/solid'
+import AddUserInGrp from "../modal/AddUserInGrp.vue";
+import AddTasksHebdo from "../modal/AddTasksHebdo.vue";
+import LeaveGrp from "../modal/LeaveGrp.vue";
+import ChangeColor from "../modal/ChangeColor.vue";
+// import AddTasksSpecial from "../modal/AddTasksSpecial.vue";
+import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
+import { ChevronDownIcon } from "@heroicons/vue/solid";
 
 export default {
-  name: 'ActionMenuGroup',
+  name: "ActionMenuGroup",
   components: {
     AddUserInGrp,
     AddTasksHebdo,
-    AddTasksSpecial,
+    // AddTasksSpecial,
     LeaveGrp,
     ChangeColor,
     Menu,
@@ -185,31 +158,31 @@ export default {
     return {
       isAddUser: false,
       isAddTasks: false,
-      isAddSpecial: false,
+      // isAddSpecial: false,
       isLeaveGrp: false,
       isChangeColor: false,
-    }
+    };
   },
   methods: {
     toggleAddUser() {
-      this.isAddUser = !this.isAddUser
+      this.isAddUser = !this.isAddUser;
     },
     toggleAddTasks() {
-      this.isAddTasks = !this.isAddTasks
+      this.isAddTasks = !this.isAddTasks;
     },
-    toggleAddSpecial() {
-      this.isAddSpecial = !this.isAddSpecial
-    },
+    // toggleAddSpecial() {
+    //   this.isAddSpecial = !this.isAddSpecial;
+    // },
     toggleLeaveGrp() {
-      this.isLeaveGrp = !this.isLeaveGrp
+      this.isLeaveGrp = !this.isLeaveGrp;
     },
     toggleChangeColor() {
-      this.isChangeColor = !this.isChangeColor
+      this.isChangeColor = !this.isChangeColor;
     },
     logout() {
-      this.$store.dispatch('logout')
-      this.$router.push({ name: 'Login' })
+      this.$store.dispatch("logout");
+      this.$router.push({ name: "Login" });
     },
   },
-}
+};
 </script>
