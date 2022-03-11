@@ -57,9 +57,6 @@ export default {
     deleteTask: Object,
   },
   emits: ['close'],
-
-  mounted() {
-  },
   methods: {
     async deleteTaskDone() {
       await deleteDoc(
@@ -71,10 +68,9 @@ export default {
           this.deleteTask.uid
         )
       )
-      console.log(this.deleteTask.uid);
       this.$store.commit("removeTaskDone", this.deleteTask.uid)
       //bancale
-      // this.$parent.$parent.$parent.$parent.$parent.getTasksDone()
+      this.$parent.$parent.$parent.checkPlannedTask()
       this.$emit('close')
     },
   },
