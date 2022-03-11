@@ -103,7 +103,7 @@
         </transition>
       </Menu>
     </div>
-    <Transition name="fade">
+    <Transition name="modal">
       <AddUserInGrp
         @close="toggleAddUser"
         v-if="isAddUser"
@@ -111,13 +111,13 @@
         :users="$store.state.users"
       />
     </Transition>
-    <Transition name="fade">
+    <Transition name="modal">
       <AddTasksHebdo @close="toggleAddTasks" v-if="isAddTasks" />
     </Transition>
-    <!-- <Transition name="fade">
+    <!-- <Transition name="modal">
       <AddTasksSpecial @close="toggleAddSpecial" v-if="isAddSpecial" />
     </Transition> -->
-    <Transition name="fade">
+    <Transition name="modal">
       <LeaveGrp
         @close="toggleLeaveGrp"
         v-if="isLeaveGrp"
@@ -125,7 +125,7 @@
         :users="$parent.$parent.users"
       />
     </Transition>
-    <Transition name="fade">
+    <Transition name="modal">
       <ChangeColor @close="toggleChangeColor" v-if="isChangeColor" />
     </Transition>
   </div>

@@ -18,7 +18,7 @@
           Tâches faites
           <span class="font-medium text-lg"> (les 7 derniers jours) </span>
         </Title>
-        <TransitionGroup name="task" tag="div" class="space-y-2">
+        <TransitionGroup name="task" tag="div" class="space-y-2 relative">
           <div v-for="taskDone in $store.state.tasksDone" :key="taskDone.uid">
             <Flex
               jBetween
@@ -103,26 +103,26 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
+.task-move,
 .task-enter-active,
 .task-leave-active {
-  transition: all 1s ease;
-  transition-delay: 0.3s;
+  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
 }
+
 .task-enter-from,
 .task-leave-to {
   opacity: 0;
-  transform: translateX(30px);
+  transform: scaleY(1) translate(30px, 0);
 }
-/* .fade_in_out {
-  animation: 1s slidein;
+.task-leave-active {
+  position: absolute;
 }
-@keyframes slidein {
-  from {
-    opacity: 1;
-  }
 
-  to {
-    opacity: 0;
-  }
+/* .tasksContainer {
+
+  
+  height: 100%;
+  transition: all 5s ease;
 } */
+
 </style>

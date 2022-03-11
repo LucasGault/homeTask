@@ -1,5 +1,5 @@
 <template>
-  <Transition name="fade">
+  <Transition name="modal">
     <Flex @keyup.esc="$emit('close')" jCenter iCenter class="modalBg">
       <div class="modalContainer rounded-xl bg-gray-300 px-8 py-4 shadow-md">
         <slot />
@@ -47,12 +47,12 @@ export default {
 </script>
 
 <style lang='postcss' scoped>
-.fade-enter-active, .fade-leave-active {
+.modal-enter-active, .modal-leave-active {
   opacity: 1;
 
   transition: opacity .3s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.modal-enter, .modal-leave-to /* .modal-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
 .modalBg {

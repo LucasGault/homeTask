@@ -109,8 +109,6 @@ export default {
   },
   mounted() {
     this.$store.commit("getTasksDone")
-    console.log(this.$store.state.tasksDone);
-    console.log(this.$store.state.attrs);
   },
 }
 </script>
