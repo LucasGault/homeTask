@@ -22,11 +22,13 @@ export default {
   },
   methods: {
     checkPlannedTask() {
+      console.log(this.getMonday(new Date()));
       this.plannedTask.forEach((task) => {
         task.doneWeek = 0;
       });
       this.$store.state.tasksDone.forEach((taskDone) => {
         if (new Date(taskDone.date) >= new Date(this.getMonday(new Date()))) {
+          console.log(taskDone);
           const indexPlannedTask = this.plannedTask.findIndex(
             (obj) => obj.uid == taskDone.task.uid
           );
@@ -37,7 +39,7 @@ export default {
     getMonday(d) {
       d = new Date(d);
       var day = d.getDay(),
-        diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is monday
+        diff = d.getDate() - day + (day == 0 ? -6 : 0); // adjust when day is monday
       return new Date(d.setDate(diff));
     },
     
