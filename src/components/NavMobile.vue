@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed top-0 right-0 w-5/6 bg-gray-100 h-full">
+  <div class="absolute top-0 right-0 w-5/6 bg-gray-100 h-full z-40">
     <Flex col  jBetween class=" h-1/6 mt-24 ml-12">
       <div>
         <Button
